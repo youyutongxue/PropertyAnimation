@@ -16,50 +16,54 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class NextActivity extends AppCompatActivity {
-    private Context mContext = this;
-    private ImageView imageView_main;
+    private Context mCtx = this;
+    private ImageView mIv_next;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_next);
-
         intiView();
     }
 
     private void intiView() {
-        imageView_main = (ImageView) findViewById(R.id.imageView_main);
-        imageView_main.setOnClickListener(new View.OnClickListener() {
+        mIv_next = (ImageView) findViewById(R.id.iv_next);
+        mIv_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext,"小猴子被点了", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mCtx, "小猴子被点了", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
+    /**
+     * 单个动画演示
+     *
+     * @param view
+     */
     public void clickView(View view) {
         //采用代码来实现属性动画
         switch (view.getId()) {
-            case R.id.button_main_alpha:
-                ObjectAnimator animator_alpha = ObjectAnimator.ofFloat(imageView_main,
+            case R.id.btn_main_alpha:
+                ObjectAnimator animator_alpha = ObjectAnimator.ofFloat(mIv_next,
                         "alpha", 0.0f, 1.0f);
                 animator_alpha.setDuration(3000);
                 animator_alpha.setRepeatCount(ValueAnimator.INFINITE);
                 animator_alpha.setRepeatMode(ValueAnimator.REVERSE);
                 animator_alpha.start();
                 break;
-            case R.id.button_main_rotate:
-                ObjectAnimator animator_rotate = ObjectAnimator.ofFloat(imageView_main,
+            case R.id.btn_main_rotate:
+                ObjectAnimator animator_rotate = ObjectAnimator.ofFloat(mIv_next,
                         "rotation", 0, 360);
                 animator_rotate.setDuration(3000);
                 animator_rotate.setRepeatCount(ValueAnimator.INFINITE);
                 animator_rotate.setRepeatMode(ValueAnimator.REVERSE);
                 animator_rotate.start();
                 break;
-            case R.id.button_main_scale:
-                ObjectAnimator animator_scaleX = ObjectAnimator.ofFloat(imageView_main,
+            case R.id.btn_main_scale:
+                ObjectAnimator animator_scaleX = ObjectAnimator.ofFloat(mIv_next,
                         "scaleX", 0, 2.0f);
-                ObjectAnimator animator_scaleY = ObjectAnimator.ofFloat(imageView_main,
+                ObjectAnimator animator_scaleY = ObjectAnimator.ofFloat(mIv_next,
                         "scaleY", 0, 2.0f);
 
                 animator_scaleX.setDuration(3000);
@@ -72,10 +76,10 @@ public class NextActivity extends AppCompatActivity {
                 animator_scaleY.setRepeatMode(ValueAnimator.REVERSE);
                 animator_scaleY.start();
                 break;
-            case R.id.button_main_translate:
-                ObjectAnimator animator_translationX = ObjectAnimator.ofFloat(imageView_main,
+            case R.id.btn_main_translate:
+                ObjectAnimator animator_translationX = ObjectAnimator.ofFloat(mIv_next,
                         "translationX", 0, 200);
-                ObjectAnimator animator_translationY = ObjectAnimator.ofFloat(imageView_main,
+                ObjectAnimator animator_translationY = ObjectAnimator.ofFloat(mIv_next,
                         "translationY", 0, 200);
 
                 animator_translationX.setDuration(3000);
@@ -91,31 +95,36 @@ public class NextActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * 组合动画演示
+     *
+     * @param view
+     */
     public void clickViewSet(View view) {
-        AnimatorSet animatorSet=new AnimatorSet();
+        AnimatorSet animatorSet = new AnimatorSet();
 
         //绕圈
-        ObjectAnimator animator_toRight= ObjectAnimator.ofFloat(imageView_main,
-                "translationX",0,500);
+        ObjectAnimator animator_toRight = ObjectAnimator.ofFloat(mIv_next,
+                "translationX", 0, 500);
         animator_toRight.setDuration(3000);
         animator_toRight.setInterpolator(new BounceInterpolator());
 
-        ObjectAnimator animator_below= ObjectAnimator.ofFloat(imageView_main,
-                "translationY",0,500);
+        ObjectAnimator animator_below = ObjectAnimator.ofFloat(mIv_next,
+                "translationY", 0, 500);
         animator_below.setDuration(3000);
         animator_below.setInterpolator(new BounceInterpolator());
 
-        ObjectAnimator animator_toLeft= ObjectAnimator.ofFloat(imageView_main,
-                "translationX",500,0);
+        ObjectAnimator animator_toLeft = ObjectAnimator.ofFloat(mIv_next,
+                "translationX", 500, 0);
         animator_toLeft.setDuration(3000);
         animator_toLeft.setInterpolator(new BounceInterpolator());
 
-        ObjectAnimator animator_up= ObjectAnimator.ofFloat(imageView_main,
-                "translationY",500,0);
+        ObjectAnimator animator_up = ObjectAnimator.ofFloat(mIv_next,
+                "translationY", 500, 0);
         animator_up.setDuration(3000);
         animator_up.setInterpolator(new BounceInterpolator());
 
-        List<Animator> list=new ArrayList<>();
+        List<Animator> list = new ArrayList<>();
         list.add(animator_toRight);
         list.add(animator_below);
         list.add(animator_toLeft);

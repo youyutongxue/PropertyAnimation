@@ -18,8 +18,8 @@ import android.widget.Toast;
  * 最大的特点是：改变对象的实际属性
  */
 public class MainActivity extends AppCompatActivity {
-    private Context mContext = this;
-    private ImageView mImage;
+    private Context mCtx = this;
+    private ImageView mIv_main;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,11 +29,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        mImage = (ImageView) findViewById(R.id.imageView_main);
-        mImage.setOnClickListener(new View.OnClickListener() {
+        mIv_main = (ImageView) findViewById(R.id.iv_main);
+        mIv_main.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext,"小猴子被点了", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mCtx,"小猴子被点了", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -41,27 +41,27 @@ public class MainActivity extends AppCompatActivity {
     public void clickView(View view) {
         //使用XML布局文件设置属性动画
         switch (view.getId()) {
-            case R.id.button_main_alpha_xml:
-                ObjectAnimator animator_alpha_xml = (ObjectAnimator) AnimatorInflater.loadAnimator(mContext,
+            case R.id.btn_main_alpha_xml:
+                ObjectAnimator animator_alpha_xml = (ObjectAnimator) AnimatorInflater.loadAnimator(mCtx,
                         R.animator.alpha);
-                animator_alpha_xml.setTarget(mImage);
+                animator_alpha_xml.setTarget(mIv_main);
                 animator_alpha_xml.start();
                 break;
-            case R.id.button_main_rotate_xml:
-                ObjectAnimator animator_rotate_xml = (ObjectAnimator) AnimatorInflater.loadAnimator(mContext,
+            case R.id.btn_main_rotate_xml:
+                ObjectAnimator animator_rotate_xml = (ObjectAnimator) AnimatorInflater.loadAnimator(mCtx,
                         R.animator.rotate);
-                animator_rotate_xml.setTarget(mImage);
+                animator_rotate_xml.setTarget(mIv_main);
                 animator_rotate_xml.start();
                 break;
-            case R.id.button_main_scale_xml:
-                AnimatorSet animator_scale_xml= (AnimatorSet) AnimatorInflater.loadAnimator(mContext,R.animator.scale);
-                animator_scale_xml.setTarget(mImage);
+            case R.id.btn_main_scale_xml:
+                AnimatorSet animator_scale_xml= (AnimatorSet) AnimatorInflater.loadAnimator(mCtx,R.animator.scale);
+                animator_scale_xml.setTarget(mIv_main);
                 animator_scale_xml.start();
                 break;
-            case R.id.button_main_translate_xml:
-                AnimatorSet animator_translate_xml = (AnimatorSet) AnimatorInflater.loadAnimator(mContext,
+            case R.id.btn_main_translate_xml:
+                AnimatorSet animator_translate_xml = (AnimatorSet) AnimatorInflater.loadAnimator(mCtx,
                         R.animator.translate);
-                animator_translate_xml.setTarget(mImage);
+                animator_translate_xml.setTarget(mIv_main);
                 animator_translate_xml.start();
                 break;
         }
@@ -69,9 +69,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void clickViewSet(View view) {
         switch (view.getId()){
-            case R.id.button_main_set_xml:
-                AnimatorSet animator_set_xml= (AnimatorSet) AnimatorInflater.loadAnimator(mContext,R.animator.set_animator);
-                animator_set_xml.setTarget(mImage);
+            case R.id.btn_main_set_xml:
+                AnimatorSet animator_set_xml= (AnimatorSet) AnimatorInflater.loadAnimator(mCtx,R.animator.set_animator);
+                animator_set_xml.setTarget(mIv_main);
                 animator_set_xml.start();
                 break;
         }
@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         Intent view = new Intent();
-        view.setClass(mContext,NextActivity.class);
+        view.setClass(mCtx,NextActivity.class);
         startActivity(view);
         return super.onOptionsItemSelected(item);
     }
