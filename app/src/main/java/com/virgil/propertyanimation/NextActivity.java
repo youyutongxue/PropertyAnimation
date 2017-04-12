@@ -1,12 +1,16 @@
 package com.virgil.propertyanimation;
 
 import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.BounceInterpolator;
 import android.widget.ImageView;
@@ -102,7 +106,6 @@ public class NextActivity extends AppCompatActivity {
      */
     public void clickViewSet(View view) {
         AnimatorSet animatorSet = new AnimatorSet();
-
         //绕圈
         ObjectAnimator animator_toRight = ObjectAnimator.ofFloat(mIv_next,
                 "translationX", 0, 500);
@@ -131,6 +134,50 @@ public class NextActivity extends AppCompatActivity {
         list.add(animator_up);
 
         animatorSet.playSequentially(list);
+        //给组合动画设置监听器
+        /*animatorSet.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+                Toast.makeText(mCtx, "onAnimationStart", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                Toast.makeText(mCtx, "onAnimationEnd", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+                Toast.makeText(mCtx, "onAnimationCancel", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+                Toast.makeText(mCtx, "onAnimationRepeat", Toast.LENGTH_SHORT).show();
+            }
+        });*/
+
+        animatorSet.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+                super.onAnimationStart(animation);
+                Toast.makeText(mCtx, "onAnimationStart", Toast.LENGTH_SHORT).show();
+            }
+        });
         animatorSet.start();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent view = new Intent();
+        view.setClass(mCtx,ThirdActivity.class);
+        startActivity(view);
+        return super.onOptionsItemSelected(item);
     }
 }
